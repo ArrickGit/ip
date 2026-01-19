@@ -2,8 +2,8 @@ import java.util.*;
 public class Pompompurin {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] database = new String[100];
-        int databasePointer = 0;
+        Task[] tasks = new Task[100];
+        int taskCounter = 0;
         // ascii art obtain from https://patorjk.com/software/taag/#p=display&f=Big&t=Pompompurin&x=none&v=4&h=4&w=80&we=false
         String logo = "_____                                                       _       \n"
         + "|  __ \\                                                     (_) \n"
@@ -30,15 +30,34 @@ public class Pompompurin {
             }
             if (input.equals("list")) {
                 System.out.println(line);
-                for (int i = 0; i < databasePointer; i++) {
-                    System.out.println((i + 1) + ". " + database[i]);
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < taskCounter; i++) {
+                    System.out.println((i + 1) + ". " + tasks[i]);
                 }
                 System.out.println(line);
                 continue;
             }
+            if (input.startsWith("mark ")) {
+                int index = Integer.parseInt(input.substring(5).trim()) - 1; // obtain the 6th index because mark + space is already 5 index
+                tasks[index].markAsDone();
+                System.out.println(line);
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(" " + tasks[index]);
+                System.out.println(line);
+                continue;
+            }
+            if (input.startsWith("unmark ")) {
+                int index = Integer.parseInt(input.substring(7).trim()) - 1; // obtain the 8th index because unmark + space is already 7 index
+                tasks[index].markAsNotDone();
+                System.out.println(line);
+                System.out.println("OK, I've marked this task as not done yet:");
+                System.out.println(" " + tasks[index]);
+                System.out.println(line);
+                continue;
+            }
             System.out.println(line);
-            database[databasePointer] = input;
-            databasePointer++;
+            tasks[taskCounter] = new Task(input);
+            taskCounter++;
             System.out.println("added: " + input);
             System.out.println(line);
         }
