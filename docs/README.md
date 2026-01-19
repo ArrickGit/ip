@@ -1,4 +1,4 @@
-# Duke User Guide
+# Pompompurin User Guide
 
 // Update the title above to match the actual product name
 
