@@ -1,5 +1,7 @@
+import java.util.*;
 public class Pompompurin {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
 //        String logo = " ____        _        \n"
 //                + "|  _ \\ _   _| | _____ \n"
 //                + "| | | | | | | |/ / _ \\\n"
@@ -21,7 +23,17 @@ public class Pompompurin {
         System.out.println("Hello! I'm Pompompurin");
         System.out.println("What can I do for you?");
         System.out.println(line);
-        System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        while (true) {
+            String input = scanner.nextLine();
+            if (input.equals("bye")) {
+                System.out.println(line);
+                System.out.println("Bye. Hope to see you again soon!");
+                System.out.println(line);
+                break;
+            }
+            System.out.println(line);
+            System.out.println(input);
+            System.out.println(line);
+        }
     }
 }
