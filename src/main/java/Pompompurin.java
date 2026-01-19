@@ -55,10 +55,73 @@ public class Pompompurin {
                 System.out.println(line);
                 continue;
             }
+            if (input.startsWith("todo ")) {
+                String description = input.substring(5).trim();
+
+                tasks[taskCounter] = new Todo(description);
+                taskCounter++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCounter - 1]);
+                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                System.out.println(line);
+                continue;
+            }
+
+            if (input.startsWith("deadline ")) {
+                String rest = input.substring(9).trim();
+                int byPos = rest.indexOf(" /by ");
+                if (byPos == -1) {
+                    System.out.println(line);
+                    System.out.println("Please use: deadline <description> /by <when>");
+                    System.out.println(line);
+                    continue;
+                }
+
+                String description = rest.substring(0, byPos).trim();
+                String by = rest.substring(byPos + 5).trim();
+                tasks[taskCounter] = new DeadLine(description, by);
+                taskCounter++;
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCounter - 1]);
+                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                System.out.println(line);
+                continue;
+            }
+
+            if (input.startsWith("event ")) {
+                String rest = input.substring(6).trim();
+                int fromPos = rest.indexOf(" /from ");
+                int toPos = rest.indexOf(" /to ");
+
+                if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
+                    System.out.println(line);
+                    System.out.println("Please use: event <description> /from <start> /to <end>");
+                    System.out.println(line);
+                    continue;
+                }
+
+                String description = rest.substring(0, fromPos).trim();
+                String from = rest.substring(fromPos + 7, toPos).trim(); //+7 because space /from space
+                String to = rest.substring(toPos + 5).trim(); //+5 because space  /to space
+
+                tasks[taskCounter] = new Event(description, from, to);
+                taskCounter++;
+
+                System.out.println(line);
+                System.out.println("Got it. I've added this task:");
+                System.out.println("  " + tasks[taskCounter - 1]);
+                System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                System.out.println(line);
+                continue;
+            }
             System.out.println(line);
-            tasks[taskCounter] = new Task(input);
+            tasks[taskCounter] = new Todo(input);
             taskCounter++;
-            System.out.println("added: " + input);
+            System.out.println("Got it. I've added this task:");
+            System.out.println("  " + tasks[taskCounter - 1]);
+            System.out.println("Now you have " + taskCounter + " tasks in the list.");
             System.out.println(line);
         }
     }
