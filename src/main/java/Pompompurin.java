@@ -1,5 +1,16 @@
 import java.util.*;
 public class Pompompurin {
+    static class purinException extends Exception { //exception class
+        purinException(String message) {
+            super(message);
+        }
+    }
+
+    private static void printError(String line, String message) {
+        System.out.println(line);
+        System.out.println(message);
+        System.out.println(line);
+    }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Task[] tasks = new Task[100];
@@ -20,109 +31,151 @@ public class Pompompurin {
         System.out.println("Hello! I'm Pompompurin");
         System.out.println("What can I do for you?");
         System.out.println(line);
-        while (true) {
+        while (scanner.hasNextLine()) {
             String input = scanner.nextLine();
-            if (input.equals("bye")) {
-                System.out.println(line);
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println(line);
-                break;
-            }
-            if (input.equals("list")) {
-                System.out.println(line);
-                System.out.println("Here are the tasks in your list:");
-                for (int i = 0; i < taskCounter; i++) {
-                    System.out.println((i + 1) + ". " + tasks[i]);
-                }
-                System.out.println(line);
-                continue;
-            }
-            if (input.startsWith("mark ")) {
-                int index = Integer.parseInt(input.substring(5).trim()) - 1; // obtain the 6th index because mark + space is already 5 index
-                tasks[index].markAsDone();
-                System.out.println(line);
-                System.out.println("Nice! I've marked this task as done:");
-                System.out.println(" " + tasks[index]);
-                System.out.println(line);
-                continue;
-            }
-            if (input.startsWith("unmark ")) {
-                int index = Integer.parseInt(input.substring(7).trim()) - 1; // obtain the 8th index because unmark + space is already 7 index
-                tasks[index].markAsNotDone();
-                System.out.println(line);
-                System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println(" " + tasks[index]);
-                System.out.println(line);
-                continue;
-            }
-            if (input.startsWith("todo ")) {
-                String description = input.substring(5).trim();
 
-                tasks[taskCounter] = new Todo(description);
-                taskCounter++;
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCounter - 1]);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
-                System.out.println(line);
-                continue;
-            }
-
-            if (input.startsWith("deadline ")) {
-                String rest = input.substring(9).trim();
-                int byPos = rest.indexOf(" /by ");
-                if (byPos == -1) {
+            try { // for the exception
+                if (input.equals("bye")) {
                     System.out.println(line);
-                    System.out.println("Please use: deadline <description> /by <when>");
+                    System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println(line);
+                    break;
+                }
+
+                if (input.equals("list")) {
+                    System.out.println(line);
+                    System.out.println("Here are the tasks in your list:");
+                    for (int i = 0; i < taskCounter; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
+                    }
                     System.out.println(line);
                     continue;
                 }
 
-                String description = rest.substring(0, byPos).trim();
-                String by = rest.substring(byPos + 5).trim();
-                tasks[taskCounter] = new DeadLine(description, by);
-                taskCounter++;
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCounter - 1]);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
-                System.out.println(line);
-                continue;
-            }
+                if (input.equals("todo") || input.startsWith("todo ")) {
+                    String description = input.length() == 4 ? "" : input.substring(5).trim();
+                    if (description.isEmpty()) {
+                        throw new purinException("Beeboo =( The description of a todo cannot be empty.");
+                    }
 
-            if (input.startsWith("event ")) {
-                String rest = input.substring(6).trim();
-                int fromPos = rest.indexOf(" /from ");
-                int toPos = rest.indexOf(" /to ");
+                    tasks[taskCounter] = new Todo(description);
+                    taskCounter++;
 
-                if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
                     System.out.println(line);
-                    System.out.println("Please use: event <description> /from <start> /to <end>");
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCounter - 1]);
+                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
                     System.out.println(line);
                     continue;
                 }
 
-                String description = rest.substring(0, fromPos).trim();
-                String from = rest.substring(fromPos + 7, toPos).trim(); //+7 because space /from space
-                String to = rest.substring(toPos + 5).trim(); //+5 because space  /to space
+                if (input.equals("deadline") || input.startsWith("deadline ")) {
+                    String rest = input.length() == 8 ? "" : input.substring(9).trim();
+                    int byPos = rest.indexOf(" /by ");
+                    if (byPos == -1) {
+                        throw new purinException("Beeboo =( Please use: deadline <description> /by <when>");
+                    }
 
-                tasks[taskCounter] = new Event(description, from, to);
-                taskCounter++;
+                    String description = rest.substring(0, byPos).trim();
+                    String by = rest.substring(byPos + 5).trim();
 
-                System.out.println(line);
-                System.out.println("Got it. I've added this task:");
-                System.out.println("  " + tasks[taskCounter - 1]);
-                System.out.println("Now you have " + taskCounter + " tasks in the list.");
-                System.out.println(line);
-                continue;
+                    if (description.isEmpty()) {
+                        throw new purinException("Beeboo =( The description of a deadline cannot be empty.");
+                    }
+                    if (by.isEmpty()) {
+                        throw new purinException("Beeboo =( The /by part of a deadline cannot be empty.");
+                    }
+
+                    tasks[taskCounter] = new DeadLine(description, by);
+                    taskCounter++;
+
+                    System.out.println(line);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCounter - 1]);
+                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println(line);
+                    continue;
+                }
+
+                if (input.equals("event") || input.startsWith("event ")) {
+                    String rest = input.length() == 5 ? "" : input.substring(6).trim();
+                    int fromPos = rest.indexOf(" /from ");
+                    int toPos = rest.indexOf(" /to ");
+
+                    if (fromPos == -1 || toPos == -1 || toPos < fromPos) {
+                        throw new purinException("Beeboo =( Please use: event <description> /from <start> /to <end>");
+                    }
+
+                    String description = rest.substring(0, fromPos).trim();
+                    String from = rest.substring(fromPos + 7, toPos).trim();
+                    String to = rest.substring(toPos + 5).trim();
+
+                    if (description.isEmpty()) {
+                        throw new purinException("Beeboo =( The description of an event cannot be empty.");
+                    }
+                    if (from.isEmpty() || to.isEmpty()) {
+                        throw new purinException("Beeboo =( The /from and /to parts of an event cannot be empty.");
+                    }
+
+                    tasks[taskCounter] = new Event(description, from, to);
+                    taskCounter++;
+
+                    System.out.println(line);
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + tasks[taskCounter - 1]);
+                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println(line);
+                    continue;
+                }
+
+                if (input.startsWith("mark ")) {
+                    String num = input.substring(5).trim();
+                    int index;
+                    try {
+                        index = Integer.parseInt(num) - 1;
+                    } catch (NumberFormatException e) {
+                        throw new purinException("Beeboo =( mark expects a task number, e.g. mark 2");
+                    }
+
+                    if (index < 0 || index >= taskCounter) {
+                        throw new purinException("Beeboo =( That task number is out of range.");
+                    }
+
+                    tasks[index].markAsDone();
+                    System.out.println(line);
+                    System.out.println("Nice! I've marked this task as done:");
+                    System.out.println("  " + tasks[index]);
+                    System.out.println(line);
+                    continue;
+                }
+
+                if (input.startsWith("unmark ")) {
+                    String num = input.substring(7).trim();
+                    int index;
+                    try {
+                        index = Integer.parseInt(num) - 1;
+                    } catch (NumberFormatException e) {
+                        throw new purinException("Beeboo =( unmark expects a task number, e.g. unmark 2");
+                    }
+
+                    if (index < 0 || index >= taskCounter) {
+                        throw new purinException("Beeboo =( That task number is out of range.");
+                    }
+
+                    tasks[index].markAsNotDone();
+                    System.out.println(line);
+                    System.out.println("OK, I've marked this task as not done yet:");
+                    System.out.println("  " + tasks[index]);
+                    System.out.println(line);
+                    continue;
+                }
+
+                // Unknown command
+                throw new purinException("Beeboo =( I'm sorry, but I don't know what that means :-(");
+
+            } catch (purinException e) { //catch any command and print error message
+                printError(line, e.getMessage());
             }
-            System.out.println(line);
-            tasks[taskCounter] = new Todo(input);
-            taskCounter++;
-            System.out.println("Got it. I've added this task:");
-            System.out.println("  " + tasks[taskCounter - 1]);
-            System.out.println("Now you have " + taskCounter + " tasks in the list.");
-            System.out.println(line);
         }
     }
 }
