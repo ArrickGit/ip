@@ -13,8 +13,7 @@ public class Pompompurin {
     }
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskCounter = 0;
+        ArrayList<Task> tasks = new ArrayList<>();
         // ascii art obtain from https://patorjk.com/software/taag/#p=display&f=Big&t=Pompompurin&x=none&v=4&h=4&w=80&we=false
         String logo = "_____                                                       _       \n"
         + "|  __ \\                                                     (_) \n"
@@ -45,8 +44,8 @@ public class Pompompurin {
                 if (input.equals("list")) {
                     System.out.println(line);
                     System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < taskCounter; i++) {
-                        System.out.println((i + 1) + ". " + tasks[i]);
+                    for (int i = 0; i < tasks.size(); i++) {
+                        System.out.println((i + 1) + ". " + tasks.get(i));
                     }
                     System.out.println(line);
                     continue;
@@ -58,13 +57,13 @@ public class Pompompurin {
                         throw new purinException("Beeboo =( The description of a todo cannot be empty.");
                     }
 
-                    tasks[taskCounter] = new Todo(description);
-                    taskCounter++;
+                    Task t = new Todo(description);
+                    tasks.add(t);
 
                     System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("Gotcha. I've added this task:");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                     continue;
                 }
@@ -86,13 +85,13 @@ public class Pompompurin {
                         throw new purinException("Beeboo =( The /by part of a deadline cannot be empty.");
                     }
 
-                    tasks[taskCounter] = new DeadLine(description, by);
-                    taskCounter++;
+                    Task t = new DeadLine(description, by);
+                    tasks.add(t);
 
                     System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("Gotcha. I've added this task:");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                     continue;
                 }
@@ -117,13 +116,13 @@ public class Pompompurin {
                         throw new purinException("Beeboo =( The /from and /to parts of an event cannot be empty.");
                     }
 
-                    tasks[taskCounter] = new Event(description, from, to);
-                    taskCounter++;
+                    Task t = new Event(description, from, to);
+                    tasks.add(t);
 
                     System.out.println(line);
-                    System.out.println("Got it. I've added this task:");
-                    System.out.println("  " + tasks[taskCounter - 1]);
-                    System.out.println("Now you have " + taskCounter + " tasks in the list.");
+                    System.out.println("Gotcha. I've added this task:");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                     continue;
                 }
@@ -137,14 +136,14 @@ public class Pompompurin {
                         throw new purinException("Beeboo =( mark expects a task number, e.g. mark 2");
                     }
 
-                    if (index < 0 || index >= taskCounter) {
+                    if (index < 0 || index >= tasks.size()) {
                         throw new purinException("Beeboo =( That task number is out of range.");
                     }
 
-                    tasks[index].markAsDone();
+                    tasks.get(index).markAsDone();
                     System.out.println(line);
                     System.out.println("Nice! I've marked this task as done:");
-                    System.out.println("  " + tasks[index]);
+                    System.out.println("  " + tasks.get(index));
                     System.out.println(line);
                     continue;
                 }
@@ -158,14 +157,37 @@ public class Pompompurin {
                         throw new purinException("Beeboo =( unmark expects a task number, e.g. unmark 2");
                     }
 
-                    if (index < 0 || index >= taskCounter) {
+                    if (index < 0 || index >= tasks.size()) {
                         throw new purinException("Beeboo =( That task number is out of range.");
                     }
 
-                    tasks[index].markAsNotDone();
+                    tasks.get(index).markAsNotDone();
                     System.out.println(line);
-                    System.out.println("OK, I've marked this task as not done yet:");
-                    System.out.println("  " + tasks[index]);
+                    System.out.println("Gotcha, I've marked this task as not done yet:");
+                    System.out.println("  " + tasks.get(index));
+                    System.out.println(line);
+                    continue;
+                }
+
+                if (input.startsWith("delete ")) {
+                    String num = input.substring(7).trim();
+                    int index;
+                    try {
+                        index = Integer.parseInt(num) - 1;
+                    } catch (NumberFormatException e) {
+                        throw new purinException("Beeboo =( delete expects a task number, e.g. delete 3");
+                    }
+
+                    if (index < 0 || index >= tasks.size()) {
+                        throw new purinException("Beeboo =( That task number is out of range.");
+                    }
+
+                    Task removed = tasks.remove(index);
+
+                    System.out.println(line);
+                    System.out.println("Noted. I've destroyed this task:");
+                    System.out.println("  " + removed);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
                     System.out.println(line);
                     continue;
                 }
