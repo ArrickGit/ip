@@ -24,7 +24,9 @@ public class Pompompurin {
      */
 
     public static class purinException extends Exception {
-        public purinException(String message) { super(message); }
+        public purinException(String message) {
+            super(message);
+        }
     }
 
     /**
