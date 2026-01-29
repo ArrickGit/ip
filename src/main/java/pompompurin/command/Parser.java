@@ -5,7 +5,19 @@ import pompompurin.ui.Pompompurin;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses user input and translates it into Command objects.
+ */
+
 public class Parser {
+
+    /**
+     * Parses the full command string entered by the user.
+     *
+     * @param fullCommand The raw input string from the user.
+     * @return The specific Command object corresponding to the input.
+     * @throws Pompompurin.purinException If the command format is invalid or the command is unknown.
+     */
 
     public static Command parse(String fullCommand) throws Pompompurin.purinException {
         if (fullCommand.equals("bye")) {

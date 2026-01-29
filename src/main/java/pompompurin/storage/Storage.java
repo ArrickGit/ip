@@ -9,12 +9,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.time.LocalDate;
 
+/**
+ * Handles loading and saving tasks to a file on the hard disk.
+ */
+
 public class Storage {
     private String filePath;
+
+    /**
+     * Creates a new Storage object.
+     *
+     * @param filePath The file path where data should be stored/loaded.
+     */
 
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
+    /**
+     * Loads tasks from the file specified in the constructor.
+     * If the file or directory does not exist, they are created.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws IOException If there is an error reading the file or creating the directory.
+     */
 
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -66,6 +84,13 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Saves the current list of tasks to the file.
+     * Overwrites the existing file with the new data.
+     *
+     * @param tasks The TaskList containing the tasks to save.
+     */
 
     public void save(TaskList tasks) {
         try {

@@ -3,7 +3,18 @@ package pompompurin.command;
 import pompompurin.storage.Storage;
 import pompompurin.ui.Ui;
 
+/**
+ * Represents a command to list all tasks currently in the task list.
+ */
 public class ListCommand extends Command {
+
+    /**
+     * Displays all tasks in the list to the user.
+     *
+     * @param tasks   The list of tasks to display.
+     * @param ui      The user interface.
+     * @param storage The storage handler (not used).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showLine();
