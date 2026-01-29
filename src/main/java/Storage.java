@@ -63,10 +63,10 @@ public class Storage {
         return tasks;
     }
 
-    public void save(ArrayList<Task> tasks) {
+    public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            for (Task t : tasks) {
+            for (Task t : tasks.getAllTasks()) {
                 fw.write(t.toFileString() + System.lineSeparator());
             }
             fw.close();
