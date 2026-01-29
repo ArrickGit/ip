@@ -1,3 +1,10 @@
+package pompompurin.ui;
+
+import pompompurin.command.Command;
+import pompompurin.command.Parser;
+import pompompurin.command.TaskList;
+import pompompurin.storage.Storage;
+
 import java.io.IOException;
 
 public class Pompompurin {
@@ -7,7 +14,7 @@ public class Pompompurin {
     private Ui ui;
 
     public static class purinException extends Exception {
-        purinException(String message) { super(message); }
+        public purinException(String message) { super(message); }
     }
 
     public Pompompurin(String filePath) {

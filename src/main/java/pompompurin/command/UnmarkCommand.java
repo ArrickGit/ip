@@ -1,3 +1,9 @@
+package pompompurin.command;
+
+import pompompurin.storage.Storage;
+import pompompurin.ui.Pompompurin;
+import pompompurin.ui.Ui;
+
 public class UnmarkCommand extends Command {
     private int index;
 

@@ -1,3 +1,8 @@
+package pompompurin.command;
+
+import pompompurin.storage.Storage;
+import pompompurin.ui.Ui;
+
 public class AddCommand extends Command {
     private Task task;
 
