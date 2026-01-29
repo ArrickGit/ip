@@ -7,15 +7,33 @@ import pompompurin.storage.Storage;
 
 import java.io.IOException;
 
+/**
+ * The main entry point for the Pompompurin chatbot application.
+ * This class initializes the user interface, storage, and task list,
+ * and runs the main command loop.
+ */
+
 public class Pompompurin {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Custom exception class for Pompompurin-specific errors.
+     */
+
     public static class purinException extends Exception {
         public purinException(String message) { super(message); }
     }
+
+    /**
+     * Initializes the Pompompurin application.
+     * Attempts to load existing data from the specified file path.
+     * If loading fails, starts with an empty task list.
+     *
+     * @param filePath The file path where task data is stored.
+     */
 
     public Pompompurin(String filePath) {
         ui = new Ui();
@@ -27,6 +45,12 @@ public class Pompompurin {
             tasks = new TaskList();
         }
     }
+
+    /**
+     * Runs the main program loop.
+     * Continuously reads user commands, parses them, executes them,
+     * and saves the state until the exit command is issued.
+     */
 
     public void run() {
         ui.showWelcome();
