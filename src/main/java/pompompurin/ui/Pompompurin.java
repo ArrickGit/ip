@@ -71,6 +71,7 @@ public class Pompompurin {
     }
 
     public static void main(String[] args) {
+
         new Pompompurin("./data/pompompurin.txt").run();
     }
 }
