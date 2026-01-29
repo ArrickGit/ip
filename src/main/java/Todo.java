@@ -1,7 +1,12 @@
-public class Todo extends Task{
+public class Todo extends Task {
 
-    public Todo(String descirption) {
-        super(descirption);
+    public Todo(String description) {
+        super(description);
+    }
+
+    @Override
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
     @Override

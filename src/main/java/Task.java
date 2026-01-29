@@ -1,11 +1,13 @@
-public class Task {
-    private final String description;
-    private boolean isDone;
+public abstract class Task {
+    protected String description;
+    protected boolean isDone;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract String toFileString();
 
     public void markAsDone() {
         this.isDone = true;
