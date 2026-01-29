@@ -20,24 +20,26 @@ public class Parser {
      */
 
     public static Command parse(String fullCommand) throws Pompompurin.purinException {
-        if (fullCommand.equals("bye")) {
+        String command = fullCommand.trim();
+        String commandWord = command.isEmpty() ? "" : command.split("\\s+", 2)[0];
+        if (command.equals("bye")) {
             return new ExitCommand();
-        } else if (fullCommand.equals("list")) {
+        } else if (command.equals("list")) {
             return new ListCommand();
-        } else if (fullCommand.startsWith("delete ")) {
-            return new DeleteCommand(parseIndex(fullCommand));
-        } else if (fullCommand.startsWith("mark ")) {
-            // Assuming you created pompompurin.command.MarkCommand class
-            return new MarkCommand(parseIndex(fullCommand));
-        } else if (fullCommand.startsWith("unmark ")) {
-            // Assuming you created pompompurin.command.UnmarkCommand class
-            return new UnmarkCommand(parseIndex(fullCommand));
-        } else if (fullCommand.startsWith("todo")) {
-            return parseTodo(fullCommand);
-        } else if (fullCommand.startsWith("deadline")) {
-            return parseDeadline(fullCommand);
-        } else if (fullCommand.startsWith("event")) {
-            return parseEvent(fullCommand);
+        } else if (command.startsWith("delete ")) {
+            return new DeleteCommand(parseIndex(command));
+        } else if (command.startsWith("mark ")) {
+            return new MarkCommand(parseIndex(command));
+        } else if (command.startsWith("unmark ")) {
+            return new UnmarkCommand(parseIndex(command));
+        } else if (command.equals("find") || command.startsWith("find ")) {
+            return parseFind(command);
+        } else if (command.equals("todo") || command.startsWith("todo ")) {
+            return parseTodo(command);
+        } else if (command.equals("deadline") || command.startsWith("deadline ")) {
+            return parseDeadline(command);
+        } else if (command.equals("event") || command.startsWith("event ")) {
+            return parseEvent(command);
         } else {
             throw new Pompompurin.purinException("Beeboo =( I'm sorry, but I don't know what that means :-(");
         }
@@ -49,6 +51,16 @@ public class Parser {
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new Pompompurin.purinException("Beeboo =( Please provide a valid task number.");
         }
+    }
+
+    private static Command parseFind(String command) throws Pompompurin.purinException {
+        // Accepts: "find <keyword>" (keyword may contain spaces)
+        String[] parts = command.trim().split("\\s+", 2);
+        String keyword = parts.length < 2 ? "" : parts[1].trim();
+        if (keyword.isEmpty()) {
+            throw new Pompompurin.purinException("Beeboo =( Please tell me what to look for (e.g., find book)");
+        }
+        return new FindCommand(keyword);
     }
 
     private static Command parseTodo(String command) throws Pompompurin.purinException {
