@@ -1,4 +1,4 @@
-# Pompompurin User Guide
+# pompompurin.ui.Pompompurin User Guide
 
 // Update the title above to match the actual product name
 

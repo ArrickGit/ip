@@ -1,3 +1,8 @@
+package pompompurin.command;
+
+import pompompurin.storage.Storage;
+import pompompurin.ui.Ui;
+
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

@@ -1,3 +1,5 @@
+package pompompurin.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -22,7 +24,7 @@ public class Ui {
                 + "|_|                   |_|                  |_|\n";
         System.out.println("Hello from\n" + logo);
         showLine();
-        System.out.println("Hello! I'm Pompompurin");
+        System.out.println("Hello! I'm pompompurin.ui.Pompompurin");
         System.out.println("What can I do for you?");
         showLine();
     }
