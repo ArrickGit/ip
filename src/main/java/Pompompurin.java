@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.IOException; // Import IOException
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Pompompurin {
 
@@ -67,7 +69,6 @@ public class Pompompurin {
                 }
 
                 if (input.equals("todo") || input.startsWith("todo ")) {
-                    // ... (Keep existing parsing logic) ...
                     String description = input.length() == 4 ? "" : input.substring(5).trim();
                     if (description.isEmpty()) {
                         throw new purinException("Beeboo =( The description of a todo cannot be empty.");
@@ -75,7 +76,7 @@ public class Pompompurin {
 
                     Task t = new Todo(description);
                     tasks.add(t);
-                    storage.save(tasks); // <--- SAVE!
+                    storage.save(tasks);
 
                     System.out.println(line);
                     System.out.println("Gotcha. I've added this task:");
@@ -86,7 +87,6 @@ public class Pompompurin {
                 }
 
                 if (input.equals("deadline") || input.startsWith("deadline ")) {
-                    // ... (Keep existing parsing logic) ...
                     String rest = input.length() == 8 ? "" : input.substring(9).trim();
                     int byPos = rest.indexOf(" /by ");
                     if (byPos == -1) {
@@ -98,20 +98,26 @@ public class Pompompurin {
                     if (description.isEmpty()) throw new purinException("Beeboo =( Description empty.");
                     if (by.isEmpty()) throw new purinException("Beeboo =( Date empty.");
 
-                    Task t = new DeadLine(description, by);
-                    tasks.add(t);
-                    storage.save(tasks); // <--- SAVE!
+                    try {
+                        // Parse the user input into a date object
+                        LocalDate date = LocalDate.parse(by);
+                        Task t = new DeadLine(description, date);
+                        tasks.add(t);
+                        storage.save(tasks);
 
-                    System.out.println(line);
-                    System.out.println("Gotcha. I've added this task:");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
+                        System.out.println(line);
+                        System.out.println("Gotcha. I've added this task:");
+                        System.out.println("  " + t);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(line);
+                    } catch (DateTimeParseException e) {
+                        throw new purinException("Beeboo =( Please enter date in yyyy-mm-dd format (e.g., 2019-10-15)");
+                    }
+
                     continue;
                 }
 
                 if (input.equals("event") || input.startsWith("event ")) {
-                    // ... (Keep existing parsing logic) ...
                     String rest = input.length() == 5 ? "" : input.substring(6).trim();
                     int fromPos = rest.indexOf(" /from ");
                     int toPos = rest.indexOf(" /to ");
@@ -126,15 +132,23 @@ public class Pompompurin {
                     if (description.isEmpty()) throw new purinException("Beeboo =( Description empty.");
                     if (from.isEmpty() || to.isEmpty()) throw new purinException("Beeboo =( Times empty.");
 
-                    Task t = new Event(description, from, to);
-                    tasks.add(t);
-                    storage.save(tasks); // <--- SAVE!
+                    try {
+                        // Parse the dates provided by the user
+                        LocalDate fromDate = LocalDate.parse(from);
+                        LocalDate toDate = LocalDate.parse(to);
 
-                    System.out.println(line);
-                    System.out.println("Gotcha. I've added this task:");
-                    System.out.println("  " + t);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    System.out.println(line);
+                        Task t = new Event(description, fromDate, toDate);
+                        tasks.add(t);
+                        storage.save(tasks);
+
+                        System.out.println(line);
+                        System.out.println("Gotcha. I've added this task:");
+                        System.out.println("  " + t);
+                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                        System.out.println(line);
+                    } catch (java.time.format.DateTimeParseException e) {
+                        throw new purinException("Beeboo =( Please enter dates in yyyy-mm-dd format (e.g., event team building /from 2019-10-15 /to 2019-10-16)");
+                    }
                     continue;
                 }
 

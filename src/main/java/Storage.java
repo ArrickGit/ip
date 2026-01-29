@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class Storage {
     private String filePath;
@@ -40,12 +41,15 @@ public class Storage {
                     break;
                 case "D":
                     String by = parts[3];
-                    t = new DeadLine(description, by);
+                    LocalDate byDate = LocalDate.parse(by);
+                    t = new DeadLine(description, byDate);
                     break;
                 case "E":
                     String from = parts[3];
                     String to = parts[4];
-                    t = new Event(description, from, to);
+                    LocalDate fromDate = LocalDate.parse(from);
+                    LocalDate toDate = LocalDate.parse(to);
+                    t = new Event(description, fromDate, toDate);
                     break;
             }
 
