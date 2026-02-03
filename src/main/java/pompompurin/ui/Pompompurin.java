@@ -2,8 +2,9 @@ package pompompurin.ui;
 
 import pompompurin.command.Command;
 import pompompurin.command.Parser;
-import pompompurin.command.TaskList;
 import pompompurin.storage.Storage;
+import pompompurin.task.TaskList;
+import pompompurin.exception.PomException;
 
 import java.io.IOException;
 
@@ -12,22 +13,11 @@ import java.io.IOException;
  * This class initializes the user interface, storage, and task list,
  * and runs the main command loop.
  */
-
 public class Pompompurin {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
-    /**
-     * Custom exception class for Pompompurin-specific errors.
-     */
-
-    public static class purinException extends Exception {
-        public purinException(String message) {
-            super(message);
-        }
-    }
 
     /**
      * Initializes the Pompompurin application.
@@ -36,7 +26,6 @@ public class Pompompurin {
      *
      * @param filePath The file path where task data is stored.
      */
-
     public Pompompurin(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -53,7 +42,6 @@ public class Pompompurin {
      * Continuously reads user commands, parses them, executes them,
      * and saves the state until the exit command is issued.
      */
-
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -64,7 +52,7 @@ public class Pompompurin {
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-            } catch (purinException e) {
+            } catch (PomException e) {
                 ui.showError(e.getMessage());
             } finally {
                 ui.showLine();
@@ -73,7 +61,6 @@ public class Pompompurin {
     }
 
     public static void main(String[] args) {
-
         new Pompompurin("./data/pompompurin.txt").run();
     }
 }

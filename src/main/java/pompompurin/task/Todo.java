@@ -1,4 +1,4 @@
-package pompompurin.command;
+package pompompurin.task;
 
 /**
  * Represents a Todo task (a task without a date).
