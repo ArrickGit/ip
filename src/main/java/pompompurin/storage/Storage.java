@@ -1,6 +1,11 @@
 package pompompurin.storage;
 
 import pompompurin.command.*;
+import pompompurin.task.DeadLine;
+import pompompurin.task.Event;
+import pompompurin.task.Task;
+import pompompurin.task.TaskList;
+import pompompurin.task.Todo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,7 +17,6 @@ import java.time.LocalDate;
 /**
  * Handles loading and saving tasks to a file on the hard disk.
  */
-
 public class Storage {
     private String filePath;
 
@@ -21,7 +25,6 @@ public class Storage {
      *
      * @param filePath The file path where data should be stored/loaded.
      */
-
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -33,7 +36,6 @@ public class Storage {
      * @return An ArrayList of Task objects loaded from the file.
      * @throws IOException If there is an error reading the file or creating the directory.
      */
-
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -58,21 +60,21 @@ public class Storage {
 
             Task t = null;
             switch (type) {
-                case "T":
-                    t = new Todo(description);
-                    break;
-                case "D":
-                    String by = parts[3];
-                    LocalDate byDate = LocalDate.parse(by);
-                    t = new DeadLine(description, byDate);
-                    break;
-                case "E":
-                    String from = parts[3];
-                    String to = parts[4];
-                    LocalDate fromDate = LocalDate.parse(from);
-                    LocalDate toDate = LocalDate.parse(to);
-                    t = new Event(description, fromDate, toDate);
-                    break;
+            case "T":
+                t = new Todo(description);
+                break;
+            case "D":
+                String by = parts[3];
+                LocalDate byDate = LocalDate.parse(by);
+                t = new DeadLine(description, byDate);
+                break;
+            case "E":
+                String from = parts[3];
+                String to = parts[4];
+                LocalDate fromDate = LocalDate.parse(from);
+                LocalDate toDate = LocalDate.parse(to);
+                t = new Event(description, fromDate, toDate);
+                break;
             }
 
             if (t != null) {
@@ -91,7 +93,6 @@ public class Storage {
      *
      * @param tasks The TaskList containing the tasks to save.
      */
-
     public void save(TaskList tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);

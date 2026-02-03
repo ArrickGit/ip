@@ -1,6 +1,8 @@
 package pompompurin.command;
 
 import pompompurin.storage.Storage;
+import pompompurin.task.Task;
+import pompompurin.task.TaskList;
 import pompompurin.ui.Ui;
 import java.util.ArrayList;
 
@@ -32,7 +34,7 @@ public class FindCommand extends Command {
 
         // Loop through all tasks and check if description contains keyword
         for (Task t : tasks.getAllTasks()) {
-            if (t.description.contains(keyword)) {
+            if (t.getDescription().contains(keyword)) {
                 foundTasks.add(t);
             }
         }

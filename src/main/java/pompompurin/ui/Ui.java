@@ -15,7 +15,6 @@ public class Ui {
      *
      * @return The line entered by the user.
      */
-
     public Ui() {
 
         this.scanner = new Scanner(System.in);
@@ -24,7 +23,6 @@ public class Ui {
     /**
      * Displays the welcome message and logo.
      */
-
     public String readCommand() {
         return scanner.nextLine();
     }
@@ -32,7 +30,6 @@ public class Ui {
     /**
      * Displays a horizontal line separator.
      */
-
     public void showWelcome() {
         String logo = "_____                                                       _       \n"
                 + "|  __ \\                                                     (_) \n"

@@ -1,4 +1,4 @@
-package pompompurin.command;
+package pompompurin.task;
 
 /**
  * Represents a generic task.
@@ -46,6 +46,15 @@ public abstract class Task {
      */
     public String getStatusIcon() {
         return isDone ? "X" : " ";
+    }
+
+    /**
+     * Gets the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
+        return description;
     }
 
     /**

@@ -2,6 +2,7 @@ package pompompurin.command; // 1. Fix: Package name matches the folder structur
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import pompompurin.task.Todo;
 
 public class TodoTest {
 

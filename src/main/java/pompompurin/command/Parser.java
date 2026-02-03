@@ -1,6 +1,9 @@
 package pompompurin.command;
 
-import pompompurin.ui.Pompompurin;
+import pompompurin.exception.PomException;
+import pompompurin.task.DeadLine;
+import pompompurin.task.Event;
+import pompompurin.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -16,10 +19,9 @@ public class Parser {
      *
      * @param fullCommand The raw input string from the user.
      * @return The specific Command object corresponding to the input.
-     * @throws Pompompurin.purinException If the command format is invalid or the command is unknown.
+     * @throws PomException If the command format is invalid or the command is unknown.
      */
-
-    public static Command parse(String fullCommand) throws Pompompurin.purinException {
+    public static Command parse(String fullCommand) throws PomException {
         String command = fullCommand.trim();
         String commandWord = command.isEmpty() ? "" : command.split("\\s+", 2)[0];
         if (command.equals("bye")) {
@@ -41,59 +43,59 @@ public class Parser {
         } else if (command.equals("event") || command.startsWith("event ")) {
             return parseEvent(command);
         } else {
-            throw new Pompompurin.purinException("Beeboo =( I'm sorry, but I don't know what that means :-(");
+            throw new PomException("Beeboo =( I'm sorry, but I don't know what that means :-(");
         }
     }
 
-    private static int parseIndex(String command) throws Pompompurin.purinException {
+    private static int parseIndex(String command) throws PomException {
         try {
             return Integer.parseInt(command.split(" ")[1]) - 1;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new Pompompurin.purinException("Beeboo =( Please provide a valid task number.");
+            throw new PomException("Beeboo =( Please provide a valid task number.");
         }
     }
 
-    private static Command parseFind(String command) throws Pompompurin.purinException {
+    private static Command parseFind(String command) throws PomException {
         // Accepts: "find <keyword>" (keyword may contain spaces)
         String[] parts = command.trim().split("\\s+", 2);
         String keyword = parts.length < 2 ? "" : parts[1].trim();
         if (keyword.isEmpty()) {
-            throw new Pompompurin.purinException("Beeboo =( Please tell me what to look for (e.g., find book)");
+            throw new PomException("Beeboo =( Please tell me what to look for (e.g., find book)");
         }
         return new FindCommand(keyword);
     }
 
-    private static Command parseTodo(String command) throws Pompompurin.purinException {
+    private static Command parseTodo(String command) throws PomException {
         String description = command.length() <= 4 ? "" : command.substring(5).trim();
-        if (description.isEmpty()) throw new Pompompurin.purinException("Beeboo =( Description cannot be empty.");
+        if (description.isEmpty()) throw new PomException("Beeboo =( Description cannot be empty.");
         return new AddCommand(new Todo(description));
     }
 
-    private static Command parseDeadline(String command) throws Pompompurin.purinException {
+    private static Command parseDeadline(String command) throws PomException {
         String rest = command.length() <= 8 ? "" : command.substring(9).trim();
         int byPos = rest.indexOf(" /by ");
-        if (byPos == -1) throw new Pompompurin.purinException("Beeboo =( Use: deadline <desc> /by <date>");
+        if (byPos == -1) throw new PomException("Beeboo =( Use: deadline <desc> /by <date>");
         String desc = rest.substring(0, byPos).trim();
         String by = rest.substring(byPos + 5).trim();
         try {
             return new AddCommand(new DeadLine(desc, LocalDate.parse(by)));
         } catch (DateTimeParseException e) {
-            throw new Pompompurin.purinException("Beeboo =( Date format: yyyy-mm-dd");
+            throw new PomException("Beeboo =( Date format: yyyy-mm-dd");
         }
     }
 
-    private static Command parseEvent(String command) throws Pompompurin.purinException {
+    private static Command parseEvent(String command) throws PomException {
         String rest = command.length() <= 5 ? "" : command.substring(6).trim();
         int fromPos = rest.indexOf(" /from ");
         int toPos = rest.indexOf(" /to ");
-        if (fromPos == -1 || toPos == -1) throw new Pompompurin.purinException("Beeboo =( Use: event <desc> /from <date> /to <date>");
+        if (fromPos == -1 || toPos == -1) throw new PomException("Beeboo =( Use: event <desc> /from <date> /to <date>");
         String desc = rest.substring(0, fromPos).trim();
         String from = rest.substring(fromPos + 7, toPos).trim();
         String to = rest.substring(toPos + 5).trim();
         try {
             return new AddCommand(new Event(desc, LocalDate.parse(from), LocalDate.parse(to)));
         } catch (DateTimeParseException e) {
-            throw new Pompompurin.purinException("Beeboo =( Date format: yyyy-mm-dd");
+            throw new PomException("Beeboo =( Date format: yyyy-mm-dd");
         }
     }
 }

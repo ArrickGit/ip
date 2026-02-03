@@ -1,7 +1,8 @@
 package pompompurin.command;
 
 import pompompurin.storage.Storage;
-import pompompurin.ui.Pompompurin;
+import pompompurin.task.TaskList;
+import pompompurin.exception.PomException;
 import pompompurin.ui.Ui;
 
 /**
@@ -16,9 +17,9 @@ public abstract class Command {
      * @param tasks   The list of tasks to operate on.
      * @param ui      The user interface to interact with the user.
      * @param storage The storage to save or load data.
-     * @throws Pompompurin.purinException If an error occurs during execution.
+     * @throws PomException If an error occurs during execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws Pompompurin.purinException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws PomException;
 
     /**
      * Checks if this command should terminate the application.

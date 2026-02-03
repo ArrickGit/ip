@@ -1,7 +1,9 @@
 package pompompurin.command;
 
 import pompompurin.storage.Storage;
-import pompompurin.ui.Pompompurin;
+import pompompurin.task.Task;
+import pompompurin.task.TaskList;
+import pompompurin.exception.PomException;
 import pompompurin.ui.Ui;
 
 /**
@@ -25,12 +27,12 @@ public class DeleteCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The user interface.
      * @param storage The storage handler.
-     * @throws Pompompurin.purinException If the index is out of bounds.
+     * @throws PomException If the index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws Pompompurin.purinException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws PomException {
         if (index < 0 || index >= tasks.size()) {
-            throw new Pompompurin.purinException("Beeboo =( Task number out of range.");
+            throw new PomException("Beeboo =( Task number out of range.");
         }
         Task removed = tasks.delete(index);
         storage.save(tasks);
