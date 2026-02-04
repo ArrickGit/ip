@@ -1,12 +1,12 @@
 package pompompurin.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import pompompurin.exception.PomException;
 import pompompurin.task.DeadLine;
 import pompompurin.task.Event;
 import pompompurin.task.Todo;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input and translates it into Command objects.
@@ -67,14 +67,18 @@ public class Parser {
 
     private static Command parseTodo(String command) throws PomException {
         String description = command.length() <= 4 ? "" : command.substring(5).trim();
-        if (description.isEmpty()) throw new PomException("Beeboo =( Description cannot be empty.");
+        if (description.isEmpty()) {
+            throw new PomException("Beeboo =( Description cannot be empty.");
+        }
         return new AddCommand(new Todo(description));
     }
 
     private static Command parseDeadline(String command) throws PomException {
         String rest = command.length() <= 8 ? "" : command.substring(9).trim();
         int byPos = rest.indexOf(" /by ");
-        if (byPos == -1) throw new PomException("Beeboo =( Use: deadline <desc> /by <date>");
+        if (byPos == -1) {
+            throw new PomException("Beeboo =( Use: deadline <desc> /by <date>");
+        }
         String desc = rest.substring(0, byPos).trim();
         String by = rest.substring(byPos + 5).trim();
         try {
@@ -88,7 +92,9 @@ public class Parser {
         String rest = command.length() <= 5 ? "" : command.substring(6).trim();
         int fromPos = rest.indexOf(" /from ");
         int toPos = rest.indexOf(" /to ");
-        if (fromPos == -1 || toPos == -1) throw new PomException("Beeboo =( Use: event <desc> /from <date> /to <date>");
+        if (fromPos == -1 || toPos == -1) {
+            throw new PomException("Beeboo =( Use: event <desc> /from <date> /to <date>");
+        }
         String desc = rest.substring(0, fromPos).trim();
         String from = rest.substring(fromPos + 7, toPos).trim();
         String to = rest.substring(toPos + 5).trim();

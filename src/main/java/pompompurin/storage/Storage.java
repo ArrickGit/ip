@@ -1,18 +1,17 @@
 package pompompurin.storage;
 
-import pompompurin.command.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import pompompurin.task.DeadLine;
 import pompompurin.task.Event;
 import pompompurin.task.Task;
 import pompompurin.task.TaskList;
 import pompompurin.task.Todo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.time.LocalDate;
 
 /**
  * Handles loading and saving tasks to a file on the hard disk.
@@ -43,7 +42,7 @@ public class Storage {
         // If file or directory doesn't exist, create them and return empty list
         if (!file.exists()) {
             file.getParentFile().mkdirs(); // Create directory (e.g., ./data/)
-            file.createNewFile();          // Create file (e.g., pompompurin.txt)
+            file.createNewFile(); // Create file (e.g., pompompurin.txt)
             return tasks;
         }
 
@@ -75,6 +74,8 @@ public class Storage {
                 LocalDate toDate = LocalDate.parse(to);
                 t = new Event(description, fromDate, toDate);
                 break;
+            default:
+                continue;
             }
 
             if (t != null) {

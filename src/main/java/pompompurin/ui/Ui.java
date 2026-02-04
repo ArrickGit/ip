@@ -11,24 +11,23 @@ public class Ui {
     private Scanner scanner;
 
     /**
-     * Reads a command from the standard input.
-     *
-     * @return The line entered by the user.
+     * Creates a new Ui and initializes the input scanner.
      */
     public Ui() {
-
         this.scanner = new Scanner(System.in);
     }
 
     /**
-     * Displays the welcome message and logo.
+     * Reads a command from the standard input.
+     *
+     * @return The line entered by the user.
      */
     public String readCommand() {
         return scanner.nextLine();
     }
 
     /**
-     * Displays a horizontal line separator.
+     * Displays the welcome message and logo.
      */
     public void showWelcome() {
         String logo = "_____                                                       _       \n"
@@ -46,17 +45,27 @@ public class Ui {
         showLine();
     }
 
+    /**
+     * Displays a horizontal line separator.
+     */
     public void showLine() {
-
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Displays an error message to the user.
+     *
+     * @param message The error message to display.
+     */
     public void showError(String message) {
         showLine();
         System.out.println(message);
         showLine();
     }
 
+    /**
+     * Displays an error message for loading failures.
+     */
     public void showLoadingError() {
         System.out.println("Beeboo =( Error loading file. Creating new task list.");
     }
