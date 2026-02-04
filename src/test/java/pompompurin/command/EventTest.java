@@ -1,7 +1,11 @@
-package pompompurin.command; // Update to match your folder structure
-import org.junit.jupiter.api.Test;
+package pompompurin.command;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.time.LocalDate; // Import this!
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
 import pompompurin.task.Event;
 
 public class EventTest {
@@ -15,3 +19,4 @@ public class EventTest {
         assertEquals(expectedDisplay, event.toString());
     }
 }
+
