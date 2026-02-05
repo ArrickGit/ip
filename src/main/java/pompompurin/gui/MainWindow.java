@@ -3,6 +3,7 @@ package pompompurin.gui;
 import java.nio.file.Paths;
 
 import javafx.fxml.FXML;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -71,6 +72,7 @@ public class MainWindow {
         if (pom.isExitCommand(input)) {
             userInput.setDisable(true);
             sendButton.setDisable(true);
+            Platform.exit();
         }
     }
 
