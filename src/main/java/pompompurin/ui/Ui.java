@@ -40,9 +40,22 @@ public class Ui {
                 + "|_|                   |_|                  |_|\n";
         System.out.println("Hello from\n" + logo);
         showLine();
-        System.out.println("Hello! I'm Pompompurin");
-        System.out.println("What can I do for you?");
+        showLines(
+                "Hello! I'm pompompurin.ui.Pompompurin", // a simple Varargs
+                "What can I do for you?"
+        );
         showLine();
+    }
+
+    /**
+     * Prints each line on a new line.
+     *
+     * @param lines The lines to print.
+     */
+    public void showLines(String... lines) {
+        for (String line : lines) {
+            System.out.println(line);
+        }
     }
 
     /**
