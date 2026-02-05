@@ -1,0 +1,77 @@
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica", "Arial", sans-serif;
+    -fx-background-color: #f7f5f0;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.border-pane {
+    -fx-background-color: transparent;
+}
+
+.stack-pane {
+    -fx-background-color: transparent;
+}
+
+.vbox {
+    -fx-background-color: transparent;
+}
+
+.dialog-pane {
+    -fx-background-color: transparent;
+}
+
+.hbox {
+    -fx-padding: 6 10 6 10;
+}
+
+.label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #3a3a3a;
+}
+
+.dialog-label {
+    -fx-font-family: "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+}
+
+.user-dialog {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.user-dialog .label {
+    -fx-background-color: #d6f4ff;
+    -fx-background-radius: 12;
+    -fx-padding: 8 10 8 10;
+}
+
+.bot-dialog {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.bot-dialog .label {
+    -fx-background-color: #fff2cc;
+    -fx-background-radius: 12;
+    -fx-padding: 8 10 8 10;
+}
+
+.text-field {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.button {
+    -fx-background-color: #ffd966;
+    -fx-background-radius: 8;
+}
