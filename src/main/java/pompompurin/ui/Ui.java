@@ -30,7 +30,7 @@ public class Ui {
      * Displays the welcome message and logo.
      */
     public void showWelcome() {
-        String logo = "_____                                                       _       \n"
+        String logo = " _____                                                       _       \n"
                 + "|  __ \\                                                     (_) \n"
                 + "| |__) |__  _ __ ___  _ __   ___  _ __ ___  _ __  _   _ _ __ _ _ __ \n"
                 + "|  ___/ _ \\| '_ ` _ \\| '_ \\ / _ \\| '_ ` _ \\| '_ \\| | | | '__| | '_ \\ \n"
@@ -40,7 +40,7 @@ public class Ui {
                 + "|_|                   |_|                  |_|\n";
         System.out.println("Hello from\n" + logo);
         showLine();
-        System.out.println("Hello! I'm pompompurin.ui.Pompompurin");
+        System.out.println("Hello! I'm Pompompurin");
         System.out.println("What can I do for you?");
         showLine();
     }
