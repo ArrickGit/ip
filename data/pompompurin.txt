@@ -4,3 +4,4 @@ T | 0 | buy matcha
 E | 0 | buy table | 2026-04-22 | 2027-06-10
 D | 0 | complete assignment | 2028-10-11
 T | 0 | buy banana
+E | 0 | buy apples | 2026-02-10 | 2026-03-10

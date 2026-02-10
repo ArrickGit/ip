@@ -41,7 +41,7 @@ public class Ui {
         System.out.println("Hello from\n" + logo);
         showLine();
         showLines(
-                "Hello! I'm pompompurin.ui.Pompompurin", // a simple Varargs
+                "Hello! I'm Pompompurin", // a simple Varargs
                 "What can I do for you?"
         );
         showLine();

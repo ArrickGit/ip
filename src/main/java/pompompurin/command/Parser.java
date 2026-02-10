@@ -22,11 +22,11 @@ public class Parser {
      * @throws PomException If the command format is invalid or the command is unknown.
      */
     public static Command parse(String fullCommand) throws PomException {
-        String command = fullCommand.trim();
+        String command = fullCommand.trim().toLowerCase();
         String commandWord = command.isEmpty() ? "" : command.split("\\s+", 2)[0];
         if (command.equals("bye")) {
             return new ExitCommand();
-        } else if (command.equals("list")) {
+        } else if (command.equals("list")) { 
             return new ListCommand();
         } else if (command.startsWith("delete ")) {
             return new DeleteCommand(parseIndex(command));
