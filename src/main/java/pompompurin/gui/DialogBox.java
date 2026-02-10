@@ -1,6 +1,7 @@
 package pompompurin.gui;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +44,7 @@ public class DialogBox extends HBox {
      * @return A styled DialogBox.
      */
     public static DialogBox getUserDialog(String text, Image img, double size) {
-        DialogBox box = new DialogBox(text, img, size);
+        DialogBox box = new DialogBox(text.toLowerCase(Locale.ROOT), img, size);
         box.getStyleClass().add("user-dialog");
         box.setAlignment(Pos.TOP_RIGHT);
         box.getChildren().setAll(box.dialog, box.displayPicture);
