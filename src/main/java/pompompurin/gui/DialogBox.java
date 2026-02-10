@@ -38,8 +38,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for user messages.
-     *
+     * Creates a dialog box for user messages.tes
+     * 
      * @param text The message text.
      * @return A styled DialogBox.
      */
