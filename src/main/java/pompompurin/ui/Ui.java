@@ -2,6 +2,8 @@ package pompompurin.ui;
 
 import java.util.Scanner;
 
+import pompompurin.task.Help;
+
 /**
  * Handles interactions with the user.
  * Responsible for reading input and printing messages to the console.
@@ -44,6 +46,15 @@ public class Ui {
                 "Hello! I'm Pompompurin", // a simple Varargs
                 "What can I do for you?"
         );
+        showLine();
+    }
+
+    /**
+     * Displays the help message and available commands.
+     */
+    public void showHelp() {
+        showLine();
+        System.out.println(Help.getHelpMessage());
         showLine();
     }
 
