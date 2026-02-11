@@ -22,6 +22,9 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     private DialogBox(String text, Image img, double size) {
+        assert text != null : "Dialog text should not be null";
+        assert img != null : "Display image should not be null";
+        assert size > 0 : "Display size should be positive";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setRoot(this);
@@ -30,6 +33,8 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             throw new IllegalStateException("Failed to load DialogBox.fxml", e);
         }
+        assert dialog != null : "Dialog label must be injected from FXML";
+        assert displayPicture != null : "Display picture must be injected from FXML";
         dialog.setText(text);
         displayPicture.setImage(img);
         displayPicture.setFitWidth(size);
