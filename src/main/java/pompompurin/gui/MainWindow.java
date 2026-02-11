@@ -2,8 +2,8 @@ package pompompurin.gui;
 
 import java.nio.file.Paths;
 
-import javafx.fxml.FXML;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -17,6 +17,9 @@ import pompompurin.ui.Pompompurin;
  * Controller for the main chat window.
  */
 public class MainWindow {
+    private static final double BOT_AVATAR_SIZE = 100;
+    private static final double USER_AVATAR_SIZE = 150;
+
     @FXML
     private StackPane rootPane;
 
@@ -34,13 +37,10 @@ public class MainWindow {
 
     @FXML
     private Button sendButton;
-
     private final Pompompurin pom = new Pompompurin("./data/pompompurin.txt");
     private final Image botImage = new Image(Paths.get("image/pompompurin_transparent.png").toUri().toString());
     private final Image userImage = new Image(Paths.get("image/optimus_transparent.png").toUri().toString());
     private final Image bgImage = new Image(Paths.get("image/background.png").toUri().toString());
-    private static final double BOT_AVATAR_SIZE = 100;
-    private static final double USER_AVATAR_SIZE = 150;
 
     /**
      * Initializes the chat window with a welcome message.
