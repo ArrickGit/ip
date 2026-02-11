@@ -25,6 +25,8 @@ public class Parser {
         String command = fullCommand.trim().toLowerCase();
         if (command.equals("bye")) {
             return new ExitCommand();
+        } else if (command.equals("help")) {
+            return new HelpCommand();
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.startsWith("delete ")) {
