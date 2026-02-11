@@ -43,9 +43,11 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for user messages.tes
-     * 
+     * Creates a dialog box for user messages.
+     *
      * @param text The message text.
+     * @param img The image to display.
+     * @param size The size of the image.
      * @return A styled DialogBox.
      */
     public static DialogBox getUserDialog(String text, Image img, double size) {
@@ -60,6 +62,8 @@ public class DialogBox extends HBox {
      * Creates a dialog box for bot messages.
      *
      * @param text The message text.
+     * @param img The image to display.
+     * @param size The size of the image.
      * @return A styled DialogBox.
      */
     public static DialogBox getBotDialog(String text, Image img, double size) {
