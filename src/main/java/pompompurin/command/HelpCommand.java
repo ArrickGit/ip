@@ -6,6 +6,7 @@ import pompompurin.ui.Ui;
 
 /**
  * Represents a command to show help information to the user.
+ * BCD Exentsion: HelpCommand
  */
 public class HelpCommand extends Command {
 
