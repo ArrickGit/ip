@@ -71,4 +71,18 @@ public class DialogBox extends HBox {
         box.getStyleClass().add("bot-dialog");
         return box;
     }
+
+    /**
+     * Creates a dialog box for error messages.
+     *
+     * @param text The error message text.
+     * @param img The image to display.
+     * @param size The size of the image.
+     * @return A styled DialogBox for errors.
+     */
+    public static DialogBox getErrorDialog(String text, Image img, double size) {
+        DialogBox box = new DialogBox(text, img, size);
+        box.getStyleClass().add("error-dialog");
+        return box;
+    }
 }

@@ -66,6 +66,21 @@
     -fx-padding: 8 10 8 10;
 }
 
+.error-dialog {
+    -fx-alignment: CENTER_LEFT;
+}
+
+.error-dialog .label {
+    -fx-background-color: #ffcccc;
+    -fx-border-color: #ff6666;
+    -fx-border-width: 2px;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-padding: 8 10 8 10;
+    -fx-text-fill: #cc0000;
+    -fx-font-weight: bold;
+}
+
 .text-field {
     -fx-background-radius: 8;
     -fx-border-radius: 8;
