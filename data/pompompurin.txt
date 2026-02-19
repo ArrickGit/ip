@@ -1,2 +1,6 @@
-T | 0 | buy matcha
+T | 1 | buy matcha
 D | 0 | buy chair | 22-04-2027
+E | 1 | participate in night cycling | 25-02-2026 | 26-02-2026
+T | 0 | buy chair
+T | 0 | purchase ezlink card
+E | 0 | career fair at utowm | 15-03-2026 | 20-03-2026
