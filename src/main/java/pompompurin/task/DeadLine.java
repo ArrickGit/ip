@@ -22,23 +22,24 @@ public class DeadLine extends Task {
 
     /**
      * Returns the string format for file storage (D | status | description | date).
-     * The date is stored in ISO-8601 format (yyyy-mm-dd).
+     * The date is stored in dd-MM-yyyy format.
      *
      * @return The file storage string.
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + by.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
     /**
      * Returns the string representation for display.
-     * The date is formatted as "MMM d yyyy".
+     * The date is formatted as "d MMM yyyy".
      *
      * @return The formatted string with [D] tag and date.
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 }

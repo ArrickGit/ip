@@ -25,25 +25,27 @@ public class Event extends Task {
 
     /**
      * Returns the string format for file storage (E | status | description | from | to).
-     * Dates are stored in ISO-8601 format (yyyy-mm-dd).
+     * Dates are stored in dd-MM-yyyy format.
      *
      * @return The file storage string.
      */
     @Override
     public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from.format(formatter) + " | " + to.format(formatter);
     }
 
     /**
      * Returns the string representation for display.
-     * Dates are formatted as "MMM d yyyy".
+     * Dates are formatted as "d MMM yyyy".
      *
      * @return The formatted string with [E] tag and date range.
      */
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("d MMM yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 }

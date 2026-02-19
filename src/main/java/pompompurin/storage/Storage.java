@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,6 +68,7 @@ public class Storage {
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
 
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 Task t = null;
                 switch (type) {
                 case "T":
@@ -77,7 +79,7 @@ public class Storage {
                         continue;
                     }
                     String by = parts[3];
-                    LocalDate byDate = LocalDate.parse(by);
+                    LocalDate byDate = LocalDate.parse(by, formatter);
                     t = new DeadLine(description, byDate);
                     break;
                 case "E":
@@ -86,8 +88,8 @@ public class Storage {
                     }
                     String from = parts[3];
                     String to = parts[4];
-                    LocalDate fromDate = LocalDate.parse(from);
-                    LocalDate toDate = LocalDate.parse(to);
+                    LocalDate fromDate = LocalDate.parse(from, formatter);
+                    LocalDate toDate = LocalDate.parse(to, formatter);
                     t = new Event(description, fromDate, toDate);
                     break;
                 default:
