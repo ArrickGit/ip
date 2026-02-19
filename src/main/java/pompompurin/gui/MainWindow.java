@@ -1,7 +1,5 @@
 package pompompurin.gui;
 
-import java.nio.file.Paths;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,9 +36,12 @@ public class MainWindow {
     @FXML
     private Button sendButton;
     private final Pompompurin pom = new Pompompurin("./data/pompompurin.txt");
-    private final Image botImage = new Image(Paths.get("image/pompompurin_transparent.png").toUri().toString());
-    private final Image userImage = new Image(Paths.get("image/optimus_transparent.png").toUri().toString());
-    private final Image bgImage = new Image(Paths.get("image/background.png").toUri().toString());
+    private final Image botImage = new Image(
+            this.getClass().getResourceAsStream("/images/pompompurin_transparent.png"));
+    private final Image userImage = new Image(
+            this.getClass().getResourceAsStream("/images/optimus_transparent.png"));
+    private final Image bgImage = new Image(
+            this.getClass().getResourceAsStream("/images/background.png"));
 
     /**
      * Initializes the chat window with a welcome message.
