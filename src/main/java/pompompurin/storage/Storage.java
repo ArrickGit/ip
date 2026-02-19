@@ -48,43 +48,64 @@ public class Storage {
 
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            // Split by " | "
-            // We use regex " \\| " because | is a special character in regex
-            String[] parts = line.split(" \\| ");
+            String line = scanner.nextLine().trim();
 
-            String type = parts[0];
-            boolean isDone = parts[1].equals("1");
-            String description = parts[2];
-
-            Task t = null;
-            switch (type) {
-            case "T":
-                t = new Todo(description);
-                break;
-            case "D":
-                String by = parts[3];
-                LocalDate byDate = LocalDate.parse(by);
-                t = new DeadLine(description, byDate);
-                break;
-            case "E":
-                String from = parts[3];
-                String to = parts[4];
-                LocalDate fromDate = LocalDate.parse(from);
-                LocalDate toDate = LocalDate.parse(to);
-                t = new Event(description, fromDate, toDate);
-                break;
-            default:
+            // Skip empty lines
+            if (line.isEmpty()) {
                 continue;
             }
 
-            if (t != null) {
-                if (isDone) {
-                    t.markAsDone();
+            try {
+                // Split by " | "
+                String[] parts = line.split(" \\| ");
+
+                if (parts.length < 3) {
+                    continue; // Skip corrupted line
                 }
-                tasks.add(t);
+
+                String type = parts[0];
+                boolean isDone = parts[1].equals("1");
+                String description = parts[2];
+
+                Task t = null;
+                switch (type) {
+                case "T":
+                    t = new Todo(description);
+                    break;
+                case "D":
+                    if (parts.length < 4) {
+                        continue;
+                    }
+                    String by = parts[3];
+                    LocalDate byDate = LocalDate.parse(by);
+                    t = new DeadLine(description, byDate);
+                    break;
+                case "E":
+                    if (parts.length < 5) {
+                        continue;
+                    }
+                    String from = parts[3];
+                    String to = parts[4];
+                    LocalDate fromDate = LocalDate.parse(from);
+                    LocalDate toDate = LocalDate.parse(to);
+                    t = new Event(description, fromDate, toDate);
+                    break;
+                default:
+                    continue;
+                }
+
+                if (t != null) {
+                    if (isDone) {
+                        t.markAsDone();
+                    }
+                    tasks.add(t);
+                }
+            } catch (Exception e) {
+                // Skip corrupted line and continue
+                continue;
             }
         }
+        scanner.close();
         return tasks;
     }
 

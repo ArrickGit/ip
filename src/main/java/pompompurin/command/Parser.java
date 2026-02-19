@@ -50,7 +50,8 @@ public class Parser {
 
     private static int parseIndex(String command) throws PomException {
         try {
-            return Integer.parseInt(command.split(" ")[1]) - 1;
+            String[] parts = command.trim().split("\\s+");
+            return Integer.parseInt(parts[1]) - 1;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new PomException("Beeboo =( Please provide a valid task number.");
         }
@@ -82,6 +83,14 @@ public class Parser {
         }
         String desc = rest.substring(0, byPos).trim();
         String by = rest.substring(byPos + 5).trim();
+
+        if (desc.isEmpty()) {
+            throw new PomException("Beeboo =( Description cannot be empty.");
+        }
+        if (by.isEmpty()) {
+            throw new PomException("Beeboo =( Date cannot be empty.");
+        }
+
         try {
             return new AddCommand(new DeadLine(desc, LocalDate.parse(by)));
         } catch (DateTimeParseException e) {
@@ -99,8 +108,23 @@ public class Parser {
         String desc = rest.substring(0, fromPos).trim();
         String from = rest.substring(fromPos + 7, toPos).trim();
         String to = rest.substring(toPos + 5).trim();
+
+        if (desc.isEmpty()) {
+            throw new PomException("Beeboo =( Description cannot be empty.");
+        }
+        if (from.isEmpty() || to.isEmpty()) {
+            throw new PomException("Beeboo =( Dates cannot be empty.");
+        }
+
         try {
-            return new AddCommand(new Event(desc, LocalDate.parse(from), LocalDate.parse(to)));
+            LocalDate fromDate = LocalDate.parse(from);
+            LocalDate toDate = LocalDate.parse(to);
+
+            if (!fromDate.isBefore(toDate)) {
+                throw new PomException("Beeboo =( Start date must be before end date.");
+            }
+
+            return new AddCommand(new Event(desc, fromDate, toDate));
         } catch (DateTimeParseException e) {
             throw new PomException("Beeboo =( Date format: yyyy-mm-dd");
         }
