@@ -10,7 +10,7 @@ import pompompurin.ui.Ui;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Creates a new DeleteCommand.

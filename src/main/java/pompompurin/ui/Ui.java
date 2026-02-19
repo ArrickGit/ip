@@ -10,7 +10,7 @@ import pompompurin.task.Help;
  */
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Creates a new Ui and initializes the input scanner.
