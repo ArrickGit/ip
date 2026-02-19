@@ -21,6 +21,9 @@ public class GuiApp extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         scene.getStylesheets().add(GuiApp.class.getResource("/view/Style.css").toExternalForm());
         stage.setTitle("Pompompurin");
+        stage.setMinWidth(400);
+        stage.setMinHeight(500);
+        stage.setResizable(true);
         stage.setScene(scene);
         stage.show();
     }

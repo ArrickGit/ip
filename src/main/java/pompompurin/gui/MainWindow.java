@@ -84,6 +84,22 @@ public class MainWindow {
         if (text == null || text.isEmpty()) {
             return;
         }
-        dialogContainer.getChildren().add(DialogBox.getBotDialog(text, botImage, BOT_AVATAR_SIZE));
+        // Detect error messages and style them differently
+        if (isErrorMessage(text)) {
+            dialogContainer.getChildren().add(DialogBox.getErrorDialog(text, botImage, BOT_AVATAR_SIZE));
+        } else {
+            dialogContainer.getChildren().add(DialogBox.getBotDialog(text, botImage, BOT_AVATAR_SIZE));
+        }
+    }
+
+    /**
+     * Checks if a message is an error message.
+     *
+     * @param text The message text.
+     * @return True if the message is an error.
+     */
+    private boolean isErrorMessage(String text) {
+        return text.contains("OOPS") || text.startsWith("Error")
+                || text.startsWith("Invalid") || text.contains("exception");
     }
 }
