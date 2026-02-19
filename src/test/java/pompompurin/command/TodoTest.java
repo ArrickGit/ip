@@ -21,4 +21,29 @@ public class TodoTest {
         String expected = "[T][ ] read book";
         assertEquals(expected, todo.toString());
     }
+
+    @Test
+    public void markAsDone_todo_markedCorrectly() {
+        Todo todo = new Todo("exercise");
+        todo.markAsDone();
+        String expected = "[T][X] exercise";
+        assertEquals(expected, todo.toString());
+    }
+
+    @Test
+    public void toFileString_markedTodo_correctFormat() {
+        Todo todo = new Todo("homework");
+        todo.markAsDone();
+        String expected = "T | 1 | homework";
+        assertEquals(expected, todo.toFileString());
+    }
+
+    @Test
+    public void markAsNotDone_todo_unmarkedCorrectly() {
+        Todo todo = new Todo("sleep");
+        todo.markAsDone();
+        todo.markAsNotDone();
+        String expected = "[T][ ] sleep";
+        assertEquals(expected, todo.toString());
+    }
 }
