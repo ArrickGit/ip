@@ -1,7 +1,2 @@
-E | 0 | help buy book | 2018-10-25 | 2019-10-23
-T | 0 | get chair
 T | 0 | buy matcha
-E | 0 | buy table | 2026-04-22 | 2027-06-10
-D | 0 | complete assignment | 2028-10-11
-T | 0 | buy banana
-T | 0 | apple
+D | 0 | buy chair | 22-04-2027

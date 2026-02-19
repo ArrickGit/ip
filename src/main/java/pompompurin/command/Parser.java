@@ -1,6 +1,7 @@
 package pompompurin.command;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import pompompurin.exception.PomException;
@@ -92,9 +93,11 @@ public class Parser {
         }
 
         try {
-            return new AddCommand(new DeadLine(desc, LocalDate.parse(by)));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(by, formatter);
+            return new AddCommand(new DeadLine(desc, date));
         } catch (DateTimeParseException e) {
-            throw new PomException("Beeboo =( Date format: yyyy-mm-dd");
+            throw new PomException("Beeboo =( Date format: dd-mm-yyyy");
         }
     }
 
@@ -117,8 +120,9 @@ public class Parser {
         }
 
         try {
-            LocalDate fromDate = LocalDate.parse(from);
-            LocalDate toDate = LocalDate.parse(to);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate fromDate = LocalDate.parse(from, formatter);
+            LocalDate toDate = LocalDate.parse(to, formatter);
 
             if (!fromDate.isBefore(toDate)) {
                 throw new PomException("Beeboo =( Start date must be before end date.");
@@ -126,7 +130,7 @@ public class Parser {
 
             return new AddCommand(new Event(desc, fromDate, toDate));
         } catch (DateTimeParseException e) {
-            throw new PomException("Beeboo =( Date format: yyyy-mm-dd");
+            throw new PomException("Beeboo =( Date format: dd-mm-yyyy");
         }
     }
 }

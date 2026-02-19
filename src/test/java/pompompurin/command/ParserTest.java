@@ -40,7 +40,7 @@ public class ParserTest {
 
     @Test
     public void parse_deadlineCommand_success() throws PomException {
-        Command command = Parser.parse("deadline submit /by 2026-12-25");
+        Command command = Parser.parse("deadline submit /by 25-12-2026");
         assertTrue(command instanceof AddCommand);
     }
 
@@ -51,7 +51,7 @@ public class ParserTest {
 
     @Test
     public void parse_deadlineEmptyDescription_throwsException() {
-        assertThrows(PomException.class, () -> Parser.parse("deadline  /by 2026-12-25"));
+        assertThrows(PomException.class, () -> Parser.parse("deadline  /by 25-12-2026"));
     }
 
     @Test
@@ -61,13 +61,13 @@ public class ParserTest {
 
     @Test
     public void parse_eventCommand_success() throws PomException {
-        Command command = Parser.parse("event meeting /from 2026-01-01 /to 2026-01-02");
+        Command command = Parser.parse("event meeting /from 01-01-2026 /to 02-01-2026");
         assertTrue(command instanceof AddCommand);
     }
 
     @Test
     public void parse_eventWithoutFrom_throwsException() {
-        assertThrows(PomException.class, () -> Parser.parse("event meeting /to 2026-01-02"));
+        assertThrows(PomException.class, () -> Parser.parse("event meeting /to 02-01-2026"));
     }
 
     @Test

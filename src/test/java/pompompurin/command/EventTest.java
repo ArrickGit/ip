@@ -15,7 +15,7 @@ public class EventTest {
         LocalDate to = LocalDate.parse("2020-10-22");
 
         Event event = new Event("go home", from, to);
-        String expectedDisplay = "[E][ ] go home (from: Oct 22 2019 to: Oct 22 2020)";
+        String expectedDisplay = "[E][ ] go home (from: 22 Oct 2019 to: 22 Oct 2020)";
         assertEquals(expectedDisplay, event.toString());
     }
 
@@ -24,7 +24,7 @@ public class EventTest {
         LocalDate from = LocalDate.parse("2019-10-22");
         LocalDate to = LocalDate.parse("2020-10-22");
         Event event = new Event("conference", from, to);
-        String expected = "E | 0 | conference | 2019-10-22 | 2020-10-22";
+        String expected = "E | 0 | conference | 22-10-2019 | 22-10-2020";
         assertEquals(expected, event.toFileString());
     }
 
@@ -34,7 +34,7 @@ public class EventTest {
         LocalDate to = LocalDate.parse("2020-10-22");
         Event event = new Event("meeting", from, to);
         event.markAsDone();
-        String expected = "[E][X] meeting (from: Oct 22 2019 to: Oct 22 2020)";
+        String expected = "[E][X] meeting (from: 22 Oct 2019 to: 22 Oct 2020)";
         assertEquals(expected, event.toString());
     }
 }

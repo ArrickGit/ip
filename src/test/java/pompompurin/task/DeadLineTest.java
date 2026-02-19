@@ -12,7 +12,7 @@ public class DeadLineTest {
     public void toString_newDeadline_correctFormat() {
         LocalDate date = LocalDate.parse("2026-12-25");
         DeadLine deadline = new DeadLine("submit report", date);
-        String expected = "[D][ ] submit report (by: Dec 25 2026)";
+        String expected = "[D][ ] submit report (by: 25 Dec 2026)";
         assertEquals(expected, deadline.toString());
     }
 
@@ -20,7 +20,7 @@ public class DeadLineTest {
     public void toFileString_newDeadline_correctFormat() {
         LocalDate date = LocalDate.parse("2026-12-25");
         DeadLine deadline = new DeadLine("submit report", date);
-        String expected = "D | 0 | submit report | 2026-12-25";
+        String expected = "D | 0 | submit report | 25-12-2026";
         assertEquals(expected, deadline.toFileString());
     }
 
@@ -29,7 +29,7 @@ public class DeadLineTest {
         LocalDate date = LocalDate.parse("2026-03-15");
         DeadLine deadline = new DeadLine("assignment", date);
         deadline.markAsDone();
-        String expected = "[D][X] assignment (by: Mar 15 2026)";
+        String expected = "[D][X] assignment (by: 15 Mar 2026)";
         assertEquals(expected, deadline.toString());
     }
 
@@ -38,7 +38,7 @@ public class DeadLineTest {
         LocalDate date = LocalDate.parse("2026-06-30");
         DeadLine deadline = new DeadLine("project", date);
         deadline.markAsDone();
-        String expected = "D | 1 | project | 2026-06-30";
+        String expected = "D | 1 | project | 30-06-2026";
         assertEquals(expected, deadline.toFileString());
     }
 }
