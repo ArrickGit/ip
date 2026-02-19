@@ -9,7 +9,7 @@ import pompompurin.ui.Ui;
  * Represents a command to add a new task (Todo, Deadline, or Event) to the task list.
  */
 public class AddCommand extends Command {
-    private Task task;
+    private final Task task;
 
     /**
      * Creates a new AddCommand with the specified task.

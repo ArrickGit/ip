@@ -10,7 +10,7 @@ import pompompurin.ui.Ui;
  * Represents a command to mark a task as not done (incomplete).
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Creates a new UnmarkCommand.

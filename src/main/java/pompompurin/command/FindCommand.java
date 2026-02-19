@@ -11,7 +11,7 @@ import pompompurin.ui.Ui;
  * Represents a command to find and list tasks that contain a specific keyword.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Creates a new FindCommand with the specified keyword.

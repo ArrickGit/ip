@@ -15,9 +15,9 @@ import pompompurin.task.TaskList;
  */
 public class Pompompurin {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Initializes the Pompompurin application.
